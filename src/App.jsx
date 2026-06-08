@@ -28,7 +28,18 @@ const CLASSES = ['2-1반', '2-2반', '2-3반', '2-4반', '2-5반', '2-6반', '2-
 
 // 로컬 스토리지에 임시 저장하는 초기 모형 정의
 const LOCAL_STORAGE_KEY = 'local_schedule_data';
-const defaultLocalData = { applications: {}, confirmations: {} };
+// 응답 데이터를 안전하게 JSON으로 파싱하고 구글 권한 에러 등을 친절하게 걸러주는 헬퍼 함수
+const safeJsonParse = async (response) => {
+  const contentType = response.headers.get('content-type');
+  if (contentType && contentType.includes('text/html')) {
+    throw new Error('구글 시트 연동 웹앱 주소가 올바르지 않거나, 구글 앱스 스크립트의 액세스 권한 설정(모든 사람/Anyone)이 누락되었습니다.');
+  }
+  try {
+    return await response.json();
+  } catch (e) {
+    throw new Error('데이터 분석 오류가 발생했습니다. 구글 앱스 스크립트 배포 주소(/exec)를 정확히 확인해 주세요.');
+  }
+};
 
 function App() {
   // 웹앱 기본 상태 관리
@@ -78,7 +89,7 @@ function App() {
       try {
         const response = await fetch(sheetApiUrl);
         if (!response.ok) throw new Error('구글 시트 응답 실패');
-        const data = await response.json();
+        const data = await safeJsonParse(response);
         
         setApplications(data.applications || {});
         setConfirmations(data.confirmations || {});
@@ -146,7 +157,7 @@ function App() {
         redirect: 'follow', // 리다이렉션 자동 추적 (GAS 필수 옵션)
         body: JSON.stringify({ action: 'apply', date, period, className, subject, teacher })
       });
-      const result = await response.json();
+      const result = await safeJsonParse(response);
       if (!result.success) throw new Error(result.error || '구글 시트 저장 실패');
       
       setApplications(result.data.applications);
@@ -182,7 +193,7 @@ function App() {
         redirect: 'follow',
         body: JSON.stringify({ action: 'update', date, period, className, id, subject, teacher })
       });
-      const result = await response.json();
+      const result = await safeJsonParse(response);
       if (!result.success) throw new Error(result.error || '구글 시트 수정 실패');
 
       setApplications(result.data.applications);
@@ -224,7 +235,7 @@ function App() {
         redirect: 'follow',
         body: JSON.stringify({ action: 'delete', date, period, className, id })
       });
-      const result = await response.json();
+      const result = await safeJsonParse(response);
       if (!result.success) throw new Error(result.error || '구글 시트 삭제 실패');
 
       setApplications(result.data.applications);
@@ -269,7 +280,7 @@ function App() {
         redirect: 'follow',
         body: JSON.stringify({ action: 'confirm', date, period, className, subject, teacher })
       });
-      const result = await response.json();
+      const result = await safeJsonParse(response);
       if (!result.success) throw new Error(result.error || '구글 시트 확정 실패');
 
       setApplications(result.data.applications);
@@ -306,7 +317,7 @@ function App() {
         redirect: 'follow',
         body: JSON.stringify({ action: 'unconfirm', date, period })
       });
-      const result = await response.json();
+      const result = await safeJsonParse(response);
       if (!result.success) throw new Error(result.error || '구글 시트 확정 해제 실패');
 
       setApplications(result.data.applications);
@@ -337,7 +348,7 @@ function App() {
           redirect: 'follow',
           body: JSON.stringify({ action: 'reset' })
         });
-        const result = await response.json();
+        const result = await safeJsonParse(response);
         if (!result.success) throw new Error('구글 시트 초기화 실패');
         
         setApplications(result.data.applications);
