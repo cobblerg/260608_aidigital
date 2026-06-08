@@ -1,0 +1,749 @@
+/* 구글 폰트에서 동글동글하고 귀여운 Outfit 및 가독성 좋은 Noto Sans KR 로드 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* 글로벌 디자인 변수 선언 - 귀엽고 따스한 파스텔 테마 */
+  --font-main: 'Outfit', 'Noto Sans KR', sans-serif;
+  --bg-gradient: linear-gradient(135deg, #fff5f6 0%, #f0f7ff 50%, #f7f3ff 100%);
+  
+  /* 부드러운 밀크빛 화이트 글래스모피즘 판넬 */
+  --panel-bg: rgba(255, 255, 255, 0.8);
+  --panel-border: rgba(255, 255, 255, 0.5);
+  --card-shadow: 0 10px 30px rgba(186, 178, 209, 0.25), 0 1px 3px rgba(0, 0, 0, 0.05);
+  
+  /* 따뜻한 인상의 글씨 색상 */
+  --text-primary: #3c3c4f;
+  --text-secondary: #6e6e87;
+  --text-muted: #9f9eb8;
+  
+  /* 마시멜로 캔디 파스텔 색상 선언 */
+  --accent-pink: #ff8fa3; /* 러블리 핑크 */
+  --accent-pink-hover: #ff758f;
+  --accent-pink-glow: rgba(255, 143, 163, 0.3);
+  
+  --accent-purple: #a78bfa; /* 푸딩 퍼플 */
+  --accent-purple-hover: #8b5cf6;
+  --accent-purple-glow: rgba(167, 139, 250, 0.35);
+  
+  --accent-cyan: #38bdf8; /* 소다 소다 블루 */
+  --accent-cyan-hover: #0ea5e9;
+  --accent-cyan-glow: rgba(56, 189, 248, 0.3);
+  
+  --success: #34d399; /* 마시멜로 그린 / 확정 */
+  --success-glow: rgba(52, 211, 153, 0.3);
+  
+  --warning: #fbbf24; /* 바나나 옐로우 */
+  --danger: #f87171; /* 딸기 레드 / 삭제 */
+  --danger-hover: #ef4444;
+  
+  /* 빗금 불가 구역 - 아주 부드러운 노랑/분홍 사선 스트라이프 */
+  --diagonal-pattern: repeating-linear-gradient(
+    -45deg,
+    #faf5f5,
+    #faf5f5 8px,
+    #f3e8ff 8px,
+    #f3e8ff 16px
+  );
+  
+  /* 몽글몽글 튀어오르는 인터랙션 트랜지션 */
+  --transition-pop: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --transition-smooth: all 0.2s ease-out;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-main);
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+#root {
+  width: 100%;
+  max-width: 1350px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+/* 헤더 영역 */
+.app-header {
+  background: var(--panel-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--panel-border);
+  box-shadow: var(--card-shadow);
+  border-radius: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 24px 30px;
+}
+
+.app-title-group h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ec4899, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-title-group p {
+  margin: 8px 0 0 0;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+/* 제어판 영역 */
+.controls-panel {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* 동기화 라이브 배지 */
+.sync-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.sync-badge.syncing svg {
+  animation: spin 1.5s linear infinite;
+}
+
+.sync-badge.success {
+  color: #0d9488;
+  background: #f0fdfa;
+  border-color: #ccfbf1;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 모드 토글 스위치 (몽글몽글 구름 모양) */
+.mode-toggle-container {
+  display: flex;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 4px;
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  position: relative;
+}
+
+.mode-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-main);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: var(--transition-pop);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mode-btn:hover {
+  transform: scale(1.04);
+}
+
+.mode-btn.active {
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mode-btn.active.apply-mode {
+  background: linear-gradient(135deg, var(--accent-pink), #f43f5e);
+}
+
+.mode-btn.active.confirm-mode {
+  background: linear-gradient(135deg, var(--accent-cyan), #0284c7);
+}
+
+/* 초기화 및 로그아웃 등 둥근 귀여운 푸딩 버튼 */
+.reset-btn {
+  background: #fee2e2;
+  color: #ef4444;
+  border: 1px solid #fca5a5;
+  padding: 8px 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-family: var(--font-main);
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition-pop);
+}
+
+.reset-btn:hover {
+  background: #fecaca;
+  transform: scale(1.05);
+}
+
+.reset-btn:active {
+  transform: scale(0.97);
+}
+
+/* 시간표 랩퍼 */
+.table-container {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  box-shadow: var(--card-shadow);
+  border-radius: 24px;
+  overflow: hidden;
+  padding: 12px;
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 6px; /* 귀여운 간격 */
+  text-align: center;
+}
+
+.schedule-table th,
+.schedule-table td {
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  border-radius: 14px; /* 둥근 셀 */
+  transition: var(--transition-pop);
+}
+
+.schedule-table th {
+  background: rgba(0, 0, 0, 0.02);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px;
+}
+
+/* 날짜 및 교시 열 고정 스타일 */
+.date-cell {
+  background: #fcfcfc;
+  color: var(--text-primary);
+  font-weight: 600;
+  width: 100px;
+  font-size: 13px;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.02);
+}
+
+.period-cell {
+  background: #fdfdfd;
+  color: var(--accent-purple-hover);
+  font-weight: 700;
+  width: 65px;
+  font-size: 14px;
+}
+
+/* 학급 시간표 셀 기본 */
+.schedule-cell {
+  height: 85px;
+  padding: 6px;
+  position: relative;
+  cursor: pointer;
+  background: #ffffff;
+  min-width: 105px;
+  box-shadow: 0 2px 4px rgba(186, 178, 209, 0.06);
+}
+
+.schedule-cell:hover:not(.disabled) {
+  background: #fff8f9;
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(255, 143, 163, 0.2), inset 0 0 0 2px var(--accent-pink);
+}
+
+.confirm-mode-active .schedule-cell:hover:not(.disabled) {
+  background: #f0f9ff;
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.25), inset 0 0 0 2px var(--accent-cyan);
+}
+
+/* 신청 불가 (빗금) 셀 */
+.schedule-cell.disabled {
+  background: var(--diagonal-pattern);
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.55;
+  box-shadow: none;
+}
+
+/* 신청 정보 목록 */
+.cell-app-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  justify-content: center;
+  height: 100%;
+}
+
+.cell-app-item {
+  font-size: 11px;
+  background: #f3f0ff;
+  border: 1px solid #e9d5ff;
+  color: #6b21a8;
+  border-radius: 6px;
+  padding: 3px 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  font-weight: 500;
+}
+
+/* 확정 상태의 스타일 - 은은한 파스텔 그린 */
+.schedule-cell.confirmed {
+  background: #ecfdf5 !important;
+  box-shadow: 0 4px 10px rgba(52, 211, 153, 0.15), inset 0 0 0 2px var(--success) !important;
+}
+
+.cell-confirmed-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #065f46;
+  font-weight: 500;
+  animation: bounceLittle 1.5s infinite alternate;
+}
+
+.cell-confirmed-display .subject {
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.cell-confirmed-display .teacher {
+  font-size: 10px;
+  opacity: 0.8;
+  font-weight: 600;
+}
+
+.cell-confirmed-display .confirmed-badge {
+  font-size: 8px;
+  background: var(--success);
+  color: white;
+  font-weight: 700;
+  padding: 2px 5px;
+  border-radius: 4px;
+  margin-top: 3px;
+}
+
+@keyframes bounceLittle {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-2px); }
+}
+
+/* 탈락(비확정)된 셀들의 신청 내역 - 부드럽게 연하게 취소선 처리 */
+.schedule-cell.rejected {
+  opacity: 0.5;
+}
+
+.schedule-cell.rejected .cell-app-item {
+  text-decoration: line-through;
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: var(--text-muted);
+}
+
+/* 모달 팝업 기본 백드롭 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(82, 82, 91, 0.4);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-content {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--panel-border);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  width: 440px;
+  max-width: 90%;
+  padding: 28px;
+  border-radius: 24px;
+  animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(15px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.modal-header p {
+  margin: 3px 0 0 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-pop);
+}
+
+.close-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text-primary);
+}
+
+/* 모달 내 신청 리스트 */
+.modal-app-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  border-radius: 14px;
+  transition: var(--transition-pop);
+}
+
+.modal-app-card:hover {
+  background: #f1f5f9;
+  transform: translateY(-1px);
+}
+
+.modal-app-subject {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.modal-app-teacher {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.action-icon-btn {
+  background: transparent;
+  border: none;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-pop);
+}
+
+.action-icon-btn.edit {
+  color: var(--accent-purple-hover);
+}
+.action-icon-btn.edit:hover {
+  background: #f3e8ff;
+  transform: scale(1.1);
+}
+
+.action-icon-btn.delete {
+  color: var(--danger);
+}
+.action-icon-btn.delete:hover {
+  background: #fee2e2;
+  transform: scale(1.1);
+}
+
+/* 신규 신청 폼 */
+.input-form-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 8px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding-top: 16px;
+}
+
+.input-group label {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.input-group input {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 10px 12px;
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  font-size: 13px;
+  outline: none;
+  transition: var(--transition-smooth);
+}
+
+.input-group input:focus {
+  border-color: var(--accent-pink);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(255, 143, 163, 0.15);
+}
+
+/* 메인 파스텔 버튼 (푸딩같이 뿅 튀는 효과) */
+.btn-primary {
+  flex: 1;
+  background: linear-gradient(135deg, var(--accent-pink), #f43f5e);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-family: var(--font-main);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-pop);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 4px 10px rgba(244, 63, 94, 0.15);
+}
+
+.btn-primary:hover {
+  transform: scale(1.04);
+  box-shadow: 0 6px 14px rgba(244, 63, 94, 0.25);
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--text-primary);
+  border: 1px solid #e2e8f0;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-family: var(--font-main);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-pop);
+}
+
+.btn-secondary:hover {
+  background: #f8fafc;
+  transform: scale(1.02);
+}
+
+/* 오류 및 경고 메시지 */
+.error-msg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fef2f2;
+  border: 1px solid #fee2e2;
+  color: #b91c1c;
+  font-size: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  animation: shake 0.3s ease;
+  font-weight: 500;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+/* 확정 모달 후보 리스트 */
+.confirm-candidate-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  transition: var(--transition-pop);
+  cursor: pointer;
+}
+
+.confirm-candidate-card:hover {
+  background: #f1f5f9;
+  transform: translateY(-1px);
+}
+
+.confirm-candidate-card.selected {
+  background: #ecfdf5;
+  border-color: var(--success);
+}
+
+.confirm-class-tag {
+  align-self: flex-start;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent-cyan-hover);
+  background: #e0f2fe;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.confirm-candidate-card.selected .confirm-class-tag {
+  color: #047857;
+  background: #d1fae5;
+}
+
+.confirm-details {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.confirm-details .teacher {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-left: 6px;
+}
+
+.select-indicator {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent;
+  transition: var(--transition-pop);
+}
+
+.confirm-candidate-card.selected .select-indicator {
+  border-color: var(--success);
+  background: var(--success);
+  color: white;
+}
+
+/* 확정 해제용 딸기 레드 버튼 */
+.btn-unconfirm {
+  width: 100%;
+  background: #fee2e2;
+  color: #ef4444;
+  border: 1px solid #fca5a5;
+  padding: 10px;
+  border-radius: 12px;
+  font-family: var(--font-main);
+  font-weight: 600;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: var(--transition-pop);
+}
+
+.btn-unconfirm:hover {
+  background: #ef4444;
+  color: white;
+  border-color: #ef4444;
+  transform: translateY(-1px);
+}
+
+/* 추가 정보 박스 */
+.info-msg {
+  line-height: 1.5;
+}
+
+/* 구글 시트 주소 설정 영역의 몽글몽글 스타일 */
+.settings-section {
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 18px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: slideDown 0.2s ease-out;
+}
+
+.settings-input-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.settings-input-row input {
+  flex: 1;
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 12.5px;
+  outline: none;
+  font-family: var(--font-main);
+  transition: var(--transition-smooth);
+}
+
+.settings-input-row input:focus {
+  border-color: var(--accent-purple);
+}
+
+.settings-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.settings-badge.connected {
+  background: #e6fffa;
+  color: #00755d;
+  border: 1px solid #b2f5ea;
+}
+
+.settings-badge.demo {
+  background: #fffaf0;
+  color: #dd6b20;
+  border: 1px solid #fbd38d;
+}

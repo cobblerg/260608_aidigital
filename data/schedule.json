@@ -1,0 +1,169 @@
+{
+  "applications": {
+    "7/6(월)_4_2-2반": [
+      {
+        "id": "6xf3zse",
+        "subject": "국어",
+        "teacher": "홍길동"
+      },
+      {
+        "id": "ljt1gzn",
+        "subject": "영어",
+        "teacher": "영길동"
+      },
+      {
+        "id": "7kw30kp",
+        "subject": "과학",
+        "teacher": "과길동"
+      }
+    ],
+    "7/6(월)_4_2-7반": [
+      {
+        "id": "hgptz6w",
+        "subject": "실용",
+        "teacher": "홍길동"
+      }
+    ],
+    "7/6(월)_5_2-2반": [
+      {
+        "id": "jswj84a",
+        "subject": "국어",
+        "teacher": "국길동"
+      },
+      {
+        "id": "jlf9u2k",
+        "subject": "영어",
+        "teacher": "영길동"
+      }
+    ],
+    "7/7(화)_4_2-7반": [
+      {
+        "id": "gvph7bg",
+        "subject": "영어",
+        "teacher": "고길동"
+      },
+      {
+        "id": "ajdjoug",
+        "subject": "국어",
+        "teacher": "국길동"
+      }
+    ],
+    "7/9(목)_1_2-1반": [
+      {
+        "id": "bkwzw70",
+        "subject": "영어",
+        "teacher": "홍길동"
+      }
+    ],
+    "7/9(목)_2_2-2반": [
+      {
+        "id": "e7tt92g",
+        "subject": "영어",
+        "teacher": "홍길동"
+      }
+    ],
+    "7/9(목)_5_2-4반": [
+      {
+        "id": "5urjpeg",
+        "subject": "국어",
+        "teacher": "장나라"
+      }
+    ],
+    "7/13(월)_5_2-5반": [
+      {
+        "id": "83wwl9a",
+        "subject": "국어",
+        "teacher": "장나라"
+      }
+    ],
+    "7/13(월)_4_2-8반": [
+      {
+        "id": "jluphiu",
+        "subject": "영어",
+        "teacher": "영길동"
+      }
+    ],
+    "7/9(목)_2_2-3반": [
+      {
+        "id": "o2qok6c",
+        "subject": "영어",
+        "teacher": "홍길동"
+      },
+      {
+        "id": "y0jrbkw",
+        "subject": "국어",
+        "teacher": "곽길동"
+      }
+    ],
+    "7/9(목)_1_2-6반": [
+      {
+        "id": "0de4ufq",
+        "subject": "국어",
+        "teacher": "고길동"
+      }
+    ],
+    "7/10(금)_3_2-6반": [
+      {
+        "id": "2z0xmf7",
+        "subject": "영어",
+        "teacher": "고길동"
+      }
+    ],
+    "7/7(화)_3_2-8반": [
+      {
+        "id": "svxsvnl",
+        "subject": "국어",
+        "teacher": "홍길동"
+      }
+    ],
+    "7/13(월)_4_2-7반": [
+      {
+        "id": "3uf7hl0",
+        "subject": "영어",
+        "teacher": "고길동"
+      }
+    ]
+  },
+  "confirmations": {
+    "7/6(월)_4": {
+      "class": "2-2반",
+      "subject": "국어",
+      "teacher": "홍길동"
+    },
+    "7/7(화)_3": {
+      "class": "2-8반",
+      "subject": "국어",
+      "teacher": "홍길동"
+    },
+    "7/9(목)_2": {
+      "class": "2-3반",
+      "subject": "국어",
+      "teacher": "곽길동"
+    },
+    "7/9(목)_5": {
+      "class": "2-4반",
+      "subject": "국어",
+      "teacher": "장나라"
+    },
+    "7/13(월)_5": {
+      "class": "2-5반",
+      "subject": "국어",
+      "teacher": "장나라"
+    },
+    "7/9(목)_1": {
+      "class": "2-1반",
+      "subject": "영어",
+      "teacher": "홍길동"
+    },
+    "7/10(금)_3": {
+      "class": "2-6반",
+      "subject": "영어",
+      "teacher": "고길동"
+    },
+    "7/13(월)_4": {
+      "class": "2-7반",
+      "subject": "영어",
+      "teacher": "고길동"
+    }
+  }
+}
