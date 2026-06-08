@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { X, CheckCircle, AlertTriangle } from 'lucide-react';
+import { X, CheckCircle, AlertTriangle, RefreshCw } from 'lucide-react';
 
 const ConfirmationModal = ({ isOpen, onClose, date, period, classes, applications, confirmations, onConfirm, onUnconfirm }) => {
   // 선택한 최종 확정 후보 상태
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [error, setError] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
 
   // 해당 시간대(날짜/교시)의 전체 신청 후보들을 추출
   const candidates = [];
@@ -29,6 +30,7 @@ const ConfirmationModal = ({ isOpen, onClose, date, period, classes, application
   useEffect(() => {
     if (isOpen) {
       setError('');
+      setIsSaving(false);
       if (currentConfirmation) {
         // 기존 확정 정보가 있으면 일치하는 후보를 선택 상태로 지정
         const matched = candidates.find(
@@ -53,6 +55,8 @@ const ConfirmationModal = ({ isOpen, onClose, date, period, classes, application
       return;
     }
 
+    setIsSaving(true);
+    setError('');
     try {
       await onConfirm(
         selectedCandidate.class,
@@ -62,16 +66,22 @@ const ConfirmationModal = ({ isOpen, onClose, date, period, classes, application
       onClose();
     } catch (err) {
       setError(err.message || '확정 등록 중 오류가 발생했습니다.');
+    } finally {
+      setIsSaving(false);
     }
   };
 
   // [확정 취소 처리]
   const handleUnconfirm = async () => {
+    setIsSaving(true);
+    setError('');
     try {
       await onUnconfirm();
       onClose();
     } catch (err) {
       setError(err.message || '확정 취소 중 오류가 발생했습니다.');
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -95,6 +105,14 @@ const ConfirmationModal = ({ isOpen, onClose, date, period, classes, application
           <div className="error-msg">
             <AlertTriangle size={16} />
             <span>{error}</span>
+          </div>
+        )}
+
+        {/* 저장 중 로딩 피드백 메시지 */}
+        {isSaving && (
+          <div className="info-msg" style={{ background: '#e0f2fe', border: '1px solid #bae6fd', color: '#0369a1', fontSize: '12px', padding: '10px 12px', borderRadius: '12px', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <RefreshCw size={14} className="syncing" style={{ animation: 'spin 1.5s linear infinite', flexShrink: 0 }} />
+            <span>시간표 확정 데이터를 안전하게 저장하고 있습니다. 잠시만 기다려 주세요...</span>
           </div>
         )}
 
@@ -135,13 +153,13 @@ const ConfirmationModal = ({ isOpen, onClose, date, period, classes, application
                   key={cand.id} 
                   className={`confirm-candidate-card ${isSelected ? 'selected' : ''}`}
                   onClick={() => {
-                    if (isConfirmedElsewhere) return; // 이미 다른 요일/교시에 확정된 반은 선택 불가
+                    if (isConfirmedElsewhere || isSaving) return; // 이미 다른 요일/교시에 확정된 반 또는 저장 중에는 선택 불가
                     setError('');
                     setSelectedCandidate(cand);
                   }}
                   style={{
                     opacity: isConfirmedElsewhere ? 0.4 : 1,
-                    cursor: isConfirmedElsewhere ? 'not-allowed' : 'pointer',
+                    cursor: isConfirmedElsewhere || isSaving ? 'not-allowed' : 'pointer',
                     pointerEvents: isConfirmedElsewhere && !isSelected ? 'none' : 'auto' // 기존에 혹시 선택되어있던 상태라면 클릭으로 해제는 가능하게 처리
                   }}
                 >
@@ -169,12 +187,19 @@ const ConfirmationModal = ({ isOpen, onClose, date, period, classes, application
 
         {/* 하단 저장 및 취소 액션 */}
         <div className="form-actions" style={{ marginTop: '24px' }}>
-          <button className="btn-secondary" style={{ flex: 1 }} onClick={onClose}>
+          <button className="btn-secondary" style={{ flex: 1 }} onClick={onClose} disabled={isSaving}>
             닫기
           </button>
           {candidates.length > 0 && (
-            <button className="btn-primary" style={{ flex: 2 }} onClick={handleSaveConfirm}>
-              확정 저장하기
+            <button className="btn-primary" style={{ flex: 2 }} onClick={handleSaveConfirm} disabled={isSaving}>
+              {isSaving ? (
+                <>
+                  <RefreshCw size={15} className="syncing" style={{ animation: 'spin 1.5s linear infinite', marginRight: '6px' }} />
+                  <span>저장 중...</span>
+                </>
+              ) : (
+                '확정 저장하기'
+              )}
             </button>
           )}
         </div>
@@ -182,8 +207,8 @@ const ConfirmationModal = ({ isOpen, onClose, date, period, classes, application
         {/* 이미 확정된 정보가 있을 때 노출되는 확정 취소 섹션 */}
         {currentConfirmation && (
           <div className="unconfirm-footer">
-            <button className="btn-unconfirm" onClick={handleUnconfirm}>
-              이 시간대 확정 해제하기 (신청 대기 상태로 복원)
+            <button className="btn-unconfirm" onClick={handleUnconfirm} disabled={isSaving}>
+              {isSaving ? '확정 해제 처리 중...' : '이 시간대 확정 해제하기 (신청 대기 상태로 복원)'}
             </button>
           </div>
         )}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Plus, Trash2, Edit2, AlertCircle, Check } from 'lucide-react';
+import { X, Plus, Trash2, Edit2, AlertCircle, Check, RefreshCw } from 'lucide-react';
 
 const ApplicationModal = ({ isOpen, onClose, date, period, className, applications, onApply, onUpdate, onDelete }) => {
   // 입력 폼 필드 상태
