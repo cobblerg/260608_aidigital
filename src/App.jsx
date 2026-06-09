@@ -48,10 +48,10 @@ function App() {
   const [mode, setMode] = useState('apply'); // 'apply': 신청 모드, 'confirm': 확정 모드
   
   // 구글 스프레드시트 API URL 설정 상태
-  const [sheetApiUrl, setSheetApiUrl] = useState(localStorage.getItem('google_sheet_api_url') || '');
-  const [tempUrl, setTempUrl] = useState(localStorage.getItem('google_sheet_api_url') || '');
+  const [sheetApiUrl, setSheetApiUrl] = useState(localStorage.getItem('google_sheet_api_url') || 'https://script.google.com/macros/s/AKfycbzSJku4hBFsYLsmEdbuACcS0hLlo9DqSdDynuSqdNKvQIRXM9G1iZdRmxyZpdQ5LlM/exec');
+  const [tempUrl, setTempUrl] = useState(localStorage.getItem('google_sheet_api_url') || 'https://script.google.com/macros/s/AKfycbzSJku4hBFsYLsmEdbuACcS0hLlo9DqSdDynuSqdNKvQIRXM9G1iZdRmxyZpdQ5LlM/exec');
   const [showSettings, setShowSettings] = useState(false); // 설정 영역 토글
-  const [isUrlSaved, setIsUrlSaved] = useState(!!localStorage.getItem('google_sheet_api_url'));
+  const [isUrlSaved, setIsUrlSaved] = useState(!!localStorage.getItem('google_sheet_api_url') || true);
 
   // 관리자 인증 상태
   const [isAdmin, setIsAdmin] = useState(false);
